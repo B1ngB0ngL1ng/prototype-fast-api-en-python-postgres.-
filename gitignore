@@ -1,0 +1,87 @@
+# ==========================================
+# CargoHub - FastAPI + PostgreSQL
+# ==========================================
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python packaging and builds
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# Testing and coverage
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+junit.xml
+test-results/
+
+# Type checking and linting
+.mypy_cache/
+.pyright/
+.ruff_cache/
+.pyre/
+.dmypy.json
+
+# IDE and editor local files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+.vs/
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local databases and PostgreSQL data directories
+*.sqlite
+*.sqlite3
+*.db
+pgdata/
+postgres_data/
+
+# Logs, temporary files and backups
+*.log
+logs/
+*.tmp
+*.bak
+*.orig
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Local tools
+.python-version
+
+# NOTE: Do NOT ignore alembic/versions/; migration files belong in Git.
+# NOTE: Keep requirements.txt, pyproject.toml and .env.example in Git.
