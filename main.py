@@ -1,9 +1,7 @@
-# FastAPI entrypoint komt hier later.
 
 from fastapi import FastAPI
 
-from app.routes_and_handlers.warehouse_routes import router as warehouse_router
-
+from app.routes_and_handlers.resource_routes import router
 
 app = FastAPI(
     title="CargoHub API",
@@ -11,12 +9,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
-app.include_router(warehouse_router)
+app.include_router(router)
 
 
 @app.get("/")
 def root():
-    return {
-        "message": "CargoHub API is running"
-    }
+    return {"message": "CargoHub API is running"}

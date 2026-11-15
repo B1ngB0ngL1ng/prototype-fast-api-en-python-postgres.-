@@ -1,0 +1,771 @@
+# CargoHub FastAPI + PostgreSQL — VS Code REST Client
+# Installeer extensie: REST Client (Huachao Mao)
+# Start API: python -m uvicorn main:app --reload
+# Klik boven een request op 'Send Request'.
+# Gebruik een API_KEY uit data/user.json met rechten voor het betreffende endpoint.
+# Als CARGOHUB_REQUIRE_API_KEY=false in .env staat, is de sleutel niet nodig.
+# LET OP: POST, PUT en DELETE wijzigen ECHTE PostgreSQL-gegevens.
+# Controleer eerst IDs en kolommen via GET en maak een databasebackup.
+# De statuscodes zijn verwachtingen bij geldige data en voldoende rechten,
+# geen garantie: sommige tabellen/kolommen kunnen in jouw database ontbreken.
+
+@baseUrl = http://127.0.0.1:8000/api/v1
+@apiKey = XPcJf8KWm6lVQnpg4Rj4HlVnMDNLZW8ZMxLnub3xPZ4
+@id = 1
+@missingId = 99999999
+@warehouseTestId = 999002
+
+### HEALTH — API draait (200)
+GET http://127.0.0.1:8000/
+
+### OPENAPI — documentatie (200)
+GET http://127.0.0.1:8000/openapi.json
+
+### SECURITY — ontbrekende API_KEY (401, mits beveiliging aan)
+GET {{baseUrl}}/warehouses
+
+### SECURITY — ongeldige API_KEY (401, mits beveiliging aan)
+GET {{baseUrl}}/warehouses
+API_KEY: absoluut-ongeldig
+
+### SECURITY — onvoldoende rechten (403)
+# Vul bovenaan een geldige sleutel in die GEEN POST-rechten op warehouses heeft.
+# POST {{baseUrl}}/warehouses
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"name":"Verboden test"}
+
+# =====================================================================
+# WAREHOUSES
+# =====================================================================
+
+### WAREHOUSES — GET alle records (200)
+GET {{baseUrl}}/warehouses
+API_KEY: {{apiKey}}
+
+### WAREHOUSES — GET met paginering (200)
+GET {{baseUrl}}/warehouses?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### WAREHOUSES — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/warehouses/{{id}}
+API_KEY: {{apiKey}}
+
+### WAREHOUSES — GET onbekend ID (404)
+GET {{baseUrl}}/warehouses/{{missingId}}
+API_KEY: {{apiKey}}
+
+### WAREHOUSES — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/warehouses/geen-getal
+API_KEY: {{apiKey}}
+
+### WAREHOUSES — GET ongeldige limit (422)
+GET {{baseUrl}}/warehouses?limit=-1
+API_KEY: {{apiKey}}
+
+### WAREHOUSES — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/warehouses
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### WAREHOUSES — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/warehouses/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### WAREHOUSES — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/warehouses/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# LOCATIONS
+# =====================================================================
+
+### LOCATIONS — GET alle records (200)
+GET {{baseUrl}}/locations
+API_KEY: {{apiKey}}
+
+### LOCATIONS — GET met paginering (200)
+GET {{baseUrl}}/locations?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### LOCATIONS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/locations/{{id}}
+API_KEY: {{apiKey}}
+
+### LOCATIONS — GET onbekend ID (404)
+GET {{baseUrl}}/locations/{{missingId}}
+API_KEY: {{apiKey}}
+
+### LOCATIONS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/locations/geen-getal
+API_KEY: {{apiKey}}
+
+### LOCATIONS — GET ongeldige limit (422)
+GET {{baseUrl}}/locations?limit=-1
+API_KEY: {{apiKey}}
+
+### LOCATIONS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/locations
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### LOCATIONS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/locations/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### LOCATIONS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/locations/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# ITEMS
+# =====================================================================
+
+### ITEMS — GET alle records (200)
+GET {{baseUrl}}/items
+API_KEY: {{apiKey}}
+
+### ITEMS — GET met paginering (200)
+GET {{baseUrl}}/items?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### ITEMS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/items/{{id}}
+API_KEY: {{apiKey}}
+
+### ITEMS — GET onbekend ID (404)
+GET {{baseUrl}}/items/{{missingId}}
+API_KEY: {{apiKey}}
+
+### ITEMS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/items/geen-getal
+API_KEY: {{apiKey}}
+
+### ITEMS — GET ongeldige limit (422)
+GET {{baseUrl}}/items?limit=-1
+API_KEY: {{apiKey}}
+
+### ITEMS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/items
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEMS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/items/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEMS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/items/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# ITEM_LINES
+# =====================================================================
+
+### ITEM_LINES — GET alle records (200)
+GET {{baseUrl}}/item_lines
+API_KEY: {{apiKey}}
+
+### ITEM_LINES — GET met paginering (200)
+GET {{baseUrl}}/item_lines?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### ITEM_LINES — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/item_lines/{{id}}
+API_KEY: {{apiKey}}
+
+### ITEM_LINES — GET onbekend ID (404)
+GET {{baseUrl}}/item_lines/{{missingId}}
+API_KEY: {{apiKey}}
+
+### ITEM_LINES — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/item_lines/geen-getal
+API_KEY: {{apiKey}}
+
+### ITEM_LINES — GET ongeldige limit (422)
+GET {{baseUrl}}/item_lines?limit=-1
+API_KEY: {{apiKey}}
+
+### ITEM_LINES — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/item_lines
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEM_LINES — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/item_lines/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEM_LINES — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/item_lines/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# ITEM_GROUPS
+# =====================================================================
+
+### ITEM_GROUPS — GET alle records (200)
+GET {{baseUrl}}/item_groups
+API_KEY: {{apiKey}}
+
+### ITEM_GROUPS — GET met paginering (200)
+GET {{baseUrl}}/item_groups?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### ITEM_GROUPS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/item_groups/{{id}}
+API_KEY: {{apiKey}}
+
+### ITEM_GROUPS — GET onbekend ID (404)
+GET {{baseUrl}}/item_groups/{{missingId}}
+API_KEY: {{apiKey}}
+
+### ITEM_GROUPS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/item_groups/geen-getal
+API_KEY: {{apiKey}}
+
+### ITEM_GROUPS — GET ongeldige limit (422)
+GET {{baseUrl}}/item_groups?limit=-1
+API_KEY: {{apiKey}}
+
+### ITEM_GROUPS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/item_groups
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEM_GROUPS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/item_groups/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEM_GROUPS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/item_groups/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# ITEM_TYPES
+# =====================================================================
+
+### ITEM_TYPES — GET alle records (200)
+GET {{baseUrl}}/item_types
+API_KEY: {{apiKey}}
+
+### ITEM_TYPES — GET met paginering (200)
+GET {{baseUrl}}/item_types?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### ITEM_TYPES — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/item_types/{{id}}
+API_KEY: {{apiKey}}
+
+### ITEM_TYPES — GET onbekend ID (404)
+GET {{baseUrl}}/item_types/{{missingId}}
+API_KEY: {{apiKey}}
+
+### ITEM_TYPES — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/item_types/geen-getal
+API_KEY: {{apiKey}}
+
+### ITEM_TYPES — GET ongeldige limit (422)
+GET {{baseUrl}}/item_types?limit=-1
+API_KEY: {{apiKey}}
+
+### ITEM_TYPES — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/item_types
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEM_TYPES — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/item_types/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ITEM_TYPES — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/item_types/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# INVENTORIES
+# =====================================================================
+
+### INVENTORIES — GET alle records (200)
+GET {{baseUrl}}/inventories
+API_KEY: {{apiKey}}
+
+### INVENTORIES — GET met paginering (200)
+GET {{baseUrl}}/inventories?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### INVENTORIES — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/inventories/{{id}}
+API_KEY: {{apiKey}}
+
+### INVENTORIES — GET onbekend ID (404)
+GET {{baseUrl}}/inventories/{{missingId}}
+API_KEY: {{apiKey}}
+
+### INVENTORIES — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/inventories/geen-getal
+API_KEY: {{apiKey}}
+
+### INVENTORIES — GET ongeldige limit (422)
+GET {{baseUrl}}/inventories?limit=-1
+API_KEY: {{apiKey}}
+
+# LET OP: inventories gebruikt mogelijk een samengestelde primary key.
+# Gebruik GET /inventories/by-location/{item_id}/{location_id} hieronder.
+# Generieke PUT/DELETE /inventories/{id} zijn daarvoor NIET geschikt.
+
+### INVENTORIES — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/inventories
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### INVENTORIES — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/inventories/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### INVENTORIES — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/inventories/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# SUPPLIERS
+# =====================================================================
+
+### SUPPLIERS — GET alle records (200)
+GET {{baseUrl}}/suppliers
+API_KEY: {{apiKey}}
+
+### SUPPLIERS — GET met paginering (200)
+GET {{baseUrl}}/suppliers?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### SUPPLIERS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/suppliers/{{id}}
+API_KEY: {{apiKey}}
+
+### SUPPLIERS — GET onbekend ID (404)
+GET {{baseUrl}}/suppliers/{{missingId}}
+API_KEY: {{apiKey}}
+
+### SUPPLIERS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/suppliers/geen-getal
+API_KEY: {{apiKey}}
+
+### SUPPLIERS — GET ongeldige limit (422)
+GET {{baseUrl}}/suppliers?limit=-1
+API_KEY: {{apiKey}}
+
+### SUPPLIERS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/suppliers
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### SUPPLIERS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/suppliers/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### SUPPLIERS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/suppliers/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# ORDERS
+# =====================================================================
+
+### ORDERS — GET alle records (200)
+GET {{baseUrl}}/orders
+API_KEY: {{apiKey}}
+
+### ORDERS — GET met paginering (200)
+GET {{baseUrl}}/orders?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### ORDERS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/orders/{{id}}
+API_KEY: {{apiKey}}
+
+### ORDERS — GET onbekend ID (404)
+GET {{baseUrl}}/orders/{{missingId}}
+API_KEY: {{apiKey}}
+
+### ORDERS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/orders/geen-getal
+API_KEY: {{apiKey}}
+
+### ORDERS — GET ongeldige limit (422)
+GET {{baseUrl}}/orders?limit=-1
+API_KEY: {{apiKey}}
+
+### ORDERS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/orders
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ORDERS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/orders/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### ORDERS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/orders/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# CLIENTS
+# =====================================================================
+
+### CLIENTS — GET alle records (200)
+GET {{baseUrl}}/clients
+API_KEY: {{apiKey}}
+
+### CLIENTS — GET met paginering (200)
+GET {{baseUrl}}/clients?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### CLIENTS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/clients/{{id}}
+API_KEY: {{apiKey}}
+
+### CLIENTS — GET onbekend ID (404)
+GET {{baseUrl}}/clients/{{missingId}}
+API_KEY: {{apiKey}}
+
+### CLIENTS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/clients/geen-getal
+API_KEY: {{apiKey}}
+
+### CLIENTS — GET ongeldige limit (422)
+GET {{baseUrl}}/clients?limit=-1
+API_KEY: {{apiKey}}
+
+### CLIENTS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/clients
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### CLIENTS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/clients/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### CLIENTS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/clients/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# SHIPMENTS
+# =====================================================================
+
+### SHIPMENTS — GET alle records (200)
+GET {{baseUrl}}/shipments
+API_KEY: {{apiKey}}
+
+### SHIPMENTS — GET met paginering (200)
+GET {{baseUrl}}/shipments?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### SHIPMENTS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/shipments/{{id}}
+API_KEY: {{apiKey}}
+
+### SHIPMENTS — GET onbekend ID (404)
+GET {{baseUrl}}/shipments/{{missingId}}
+API_KEY: {{apiKey}}
+
+### SHIPMENTS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/shipments/geen-getal
+API_KEY: {{apiKey}}
+
+### SHIPMENTS — GET ongeldige limit (422)
+GET {{baseUrl}}/shipments?limit=-1
+API_KEY: {{apiKey}}
+
+### SHIPMENTS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/shipments
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### SHIPMENTS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/shipments/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### SHIPMENTS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/shipments/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# TRANSFERS
+# =====================================================================
+
+### TRANSFERS — GET alle records (200)
+GET {{baseUrl}}/transfers
+API_KEY: {{apiKey}}
+
+### TRANSFERS — GET met paginering (200)
+GET {{baseUrl}}/transfers?limit=10&offset=0
+API_KEY: {{apiKey}}
+
+### TRANSFERS — GET op ID (200 bij bestaand ID, anders 404)
+GET {{baseUrl}}/transfers/{{id}}
+API_KEY: {{apiKey}}
+
+### TRANSFERS — GET onbekend ID (404)
+GET {{baseUrl}}/transfers/{{missingId}}
+API_KEY: {{apiKey}}
+
+### TRANSFERS — GET ongeldig ID (422 door FastAPI)
+GET {{baseUrl}}/transfers/geen-getal
+API_KEY: {{apiKey}}
+
+### TRANSFERS — GET ongeldige limit (422)
+GET {{baseUrl}}/transfers?limit=-1
+API_KEY: {{apiKey}}
+
+### TRANSFERS — POST (201 bij geldige payload; WIJZIGT DATABASE)
+# LET OP: pas de JSON aan aan de kolommen van jouw PostgreSQL-tabel.
+# Niet uitvoeren voordat je een testrecord hebt voorbereid.
+# POST {{baseUrl}}/transfers
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### TRANSFERS — PUT (200 bij geldige payload; WIJZIGT DATABASE)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# PUT {{baseUrl}}/transfers/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"id": 999002}
+
+### TRANSFERS — DELETE (204 bij succes; VERWIJDERT RECORD)
+# Alleen uitvoeren met een door jezelf aangemaakt testrecord.
+# DELETE {{baseUrl}}/transfers/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# GEKOPPELDE RESOURCES — GET
+# =====================================================================
+
+### Warehouse-locaties
+GET {{baseUrl}}/warehouses/{{id}}/locations
+API_KEY: {{apiKey}}
+
+### Orderregels
+GET {{baseUrl}}/orders/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Orders van client
+GET {{baseUrl}}/clients/{{id}}/orders
+API_KEY: {{apiKey}}
+
+### Shipmentregels
+GET {{baseUrl}}/shipments/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Transferregels
+GET {{baseUrl}}/transfers/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Items per lijn
+GET {{baseUrl}}/item_lines/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Items per groep
+GET {{baseUrl}}/item_groups/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Items per type
+GET {{baseUrl}}/item_types/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Items per leverancier
+GET {{baseUrl}}/suppliers/{{id}}/items
+API_KEY: {{apiKey}}
+
+### Voorraad van item
+GET {{baseUrl}}/items/{{id}}/inventory
+API_KEY: {{apiKey}}
+
+### Orders van shipment
+GET {{baseUrl}}/shipments/{{id}}/orders
+API_KEY: {{apiKey}}
+
+### Totale voorraad van een item
+GET {{baseUrl}}/items/{{id}}/inventory/totals
+API_KEY: {{apiKey}}
+
+### Inventory op samengestelde sleutel (item_id/location_id)
+GET {{baseUrl}}/inventories/by-location/1/1
+API_KEY: {{apiKey}}
+
+# =====================================================================
+# CONCRETE WAREHOUSE-CRUD VOORBEELDEN
+# =====================================================================
+# Controleer de kolomnamen in GET /warehouses voordat je dit gebruikt.
+# Deze payload volgt de oorspronkelijke CargoHub warehouse-velden.
+# Een ID 999002 mag niet al bestaan.
+# Gebruik alleen als de database dit schema ondersteunt.
+
+### CREATE test warehouse — 201 verwacht
+# POST {{baseUrl}}/warehouses
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {
+#   "id": 999002,
+#   "code": "TEST-RTM-999002",
+#   "name": "Test Warehouse",
+#   "address": "Teststraat 1",
+#   "city": "Rotterdam",
+#   "zip_code": "3000 AA",
+#   "province": "Zuid-Holland",
+#   "country": "Netherlands",
+#   "contact_name": "Test Persoon",
+#   "contact_phone": "0612345678",
+#   "contact_email": "test@example.com"
+# }
+
+### READ aangemaakt warehouse
+GET {{baseUrl}}/warehouses/{{warehouseTestId}}
+API_KEY: {{apiKey}}
+
+### UPDATE test warehouse — 200 verwacht
+# PUT {{baseUrl}}/warehouses/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {"name": "Test Warehouse Gewijzigd"}
+
+### DELETE test warehouse — 204 verwacht
+# DELETE {{baseUrl}}/warehouses/{{warehouseTestId}}
+# API_KEY: {{apiKey}}
+
+# =====================================================================
+# NEGATIEVE TESTS
+# =====================================================================
+
+### Onbekende route — 404
+GET {{baseUrl}}/bestaat-niet
+API_KEY: {{apiKey}}
+
+### Niet-ondersteunde methode op collectie — 405
+PATCH {{baseUrl}}/warehouses
+API_KEY: {{apiKey}}
+Content-Type: application/json
+
+{}
+
+### POST met onbekend veld — 422 (mits geldige API_KEY met POST-rechten)
+POST {{baseUrl}}/warehouses
+API_KEY: {{apiKey}}
+Content-Type: application/json
+
+{"veld_dat_niet_bestaat": "test"}
+
+### POST met lege JSON — afhankelijk van verplichte DB-velden
+# Kan een fout of een record opleveren: voer dit niet zomaar uit.
+# POST {{baseUrl}}/warehouses
+# API_KEY: {{apiKey}}
+# Content-Type: application/json
+#
+# {}
+
+# Einde requests.rest
