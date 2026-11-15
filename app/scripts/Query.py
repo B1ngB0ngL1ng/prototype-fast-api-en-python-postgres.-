@@ -1,6 +1,3 @@
-# -- CargoHub: eerste fase (warehouses, orders en hun directe detailtabellen)
-# -- Voer dit uit op een lege PostgreSQL-database.
-# -- Originele JSON-id's blijven behouden bij latere import.
 # BEGIN;
 
 # CREATE TABLE warehouses (
@@ -64,8 +61,8 @@
 # SELECT table_name FROM information_schema.tables
 # WHERE table_schema = 'public' ORDER BY table_name;
 
-# -- Later, nadat client- en itemtabellen zijn aangemaakt:
-# -- ALTER TABLE orders ADD CONSTRAINT fk_orders_client FOREIGN KEY (client_id) REFERENCES clients(id);
-# -- ALTER TABLE orders ADD CONSTRAINT fk_orders_ship_to FOREIGN KEY (ship_to_client_id) REFERENCES clients(id);
-# -- ALTER TABLE orders ADD CONSTRAINT fk_orders_bill_to FOREIGN KEY (bill_to_client_id) REFERENCES clients(id);
-# -- ALTER TABLE order_items ADD CONSTRAINT fk_order_items_item FOREIGN KEY (item_id) REFERENCES items(id);
+
+# SELECT table_name
+# FROM information_schema.tables
+# WHERE table_schema = 'public'
+# ORDER BY table_name;

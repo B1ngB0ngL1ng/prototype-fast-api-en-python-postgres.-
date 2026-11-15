@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-B12-R6-B7",
+    "name": "Zone B Aisle 12 Rack 6 Bin 7",
+    "created_at": "2024-12-08T10:37:19Z",
+    "updated_at": "2024-12-30T06:59:18Z"
+  },
+  {
+    "id": 2,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-C01-R2-B7",
+    "name": "Zone C Aisle 1 Rack 2 Bin 7",
+    "created_at": "2025-06-12T13:27:31Z",
+    "updated_at": "2025-06-26T02:12:07Z"
+  },
+  {
+    "id": 3,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-B04-R3-B2",
+    "name": "Zone B Aisle 4 Rack 3 Bin 2",
+    "created_at": "2024-05-24T01:48:56Z",
+    "updated_at": "2024-06-11T13:27:46Z"
+  },
+  {
+    "id": 4,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-A06-R3-B5",
+    "name": "Zone A Aisle 6 Rack 3 Bin 5",
+    "created_at": "2024-03-08T11:56:59Z",
+    "updated_at": "2024-03-30T20:13:06Z"
+  },
+  {
+    "id": 5,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-A07-R1-B5",
+    "name": "Zone A Aisle 7 Rack 1 Bin 5",
+    "created_at": "2025-07-15T18:43:51Z",
+    "updated_at": "2025-08-12T20:23:41Z"
+  },
+  {
+    "id": 6,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-B12-R1-B1",
+    "name": "Zone B Aisle 12 Rack 1 Bin 1",
+    "created_at": "2024-12-20T00:39:48Z",
+    "updated_at": "2025-01-03T02:49:29Z"
+  },
+  {
+    "id": 7,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-A04-R1-B7",
+    "name": "Zone A Aisle 4 Rack 1 Bin 7",
+    "created_at": "2025-03-07T19:36:25Z",
+    "updated_at": "2025-03-29T20:52:05Z"
+  },
+  {
+    "id": 8,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-C03-R3-B6",
+    "name": "Zone C Aisle 3 Rack 3 Bin 6",
+    "created_at": "2024-11-21T10:59:17Z",
+    "updated_at": "2024-12-04T11:02:23Z"
+  },
+  {
+    "id": 9,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-A10-R6-B3",
+    "name": "Zone A Aisle 10 Rack 6 Bin 3",
+    "created_at": "2026-04-09T18:10:40Z",
+    "updated_at": "2026-04-21T16:24:11Z"
+  },
+  {
+    "id": 10,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-B08-R4-B5",
+    "name": "Zone B Aisle 8 Rack 4 Bin 5",
+    "created_at": "2026-05-15T04:35:29Z",
+    "updated_at": "2026-05-25T21:27:41Z"
+  },
+  {
+    "id": 11,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-C01-R2-B1",
+    "name": "Zone C Aisle 1 Rack 2 Bin 1",
+    "created_at": "2025-05-05T00:56:31Z",
+    "updated_at": "2025-05-24T13:19:58Z"
+  },
+  {
+    "id": 12,
+    "warehouse_id": 1,
+    "code": "VGH-AMB-C02-R2-B6",
+    "name": "Zone C Aisle 2 Rack 2 Bin 6",
+    "created_at": "2024-11-26T07:17:31Z",
+    "updated_at": "2024-12-20T13:56:18Z"
+  }
+]
